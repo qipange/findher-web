@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>FindHer - 导航</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap">
+</head>
+<body>
+    <div class="navigation-container">
+        <div class="nav-header">
+            <button id="backBtn" class="back-btn">←</button>
+            <div class="nav-title">导航</div>
+        </div>
+        
+        <div class="nav-content">
+            <div class="distance-display">
+                <span id="distanceValue">0</span> 米
+            </div>
+            
+            <div class="info-row">
+                <div class="info-item">
+                    <div class="info-label">高度</div>
+                    <div id="altitudeValue" class="info-value">未知 米</div>
+                </div>
+                <div class="info-item">
+                    <div class="info-label">速度</div>
+                    <div id="speedValue" class="info-value">0 m/s</div>
+                </div>
+                <div class="info-item">
+                    <div class="info-label">精度</div>
+                    <div id="accuracyValue" class="info-value">未知 米</div>
+                </div>
+            </div>
+            
+            <div class="map-container">
+                <div class="map-view">
+                    <canvas id="navigationCanvas" width="300" height="300"></canvas>
+                </div>
+                <div class="map-overlay"></div>
+                <div class="compass-indicator"></div>
+            </div>
+            
+            <div class="location-info">
+                <div class="locations-row">
+                    <div class="friend-location-display">
+                        <h2>朋友位置</h2>
+                        <div id="friendLocationDisplay"></div>
+                    </div>
+                    <div class="my-location-display">
+                        <h2>我的位置</h2>
+                        <div id="myLocationDisplay"></div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="nav-footer">
+                <button id="mapViewBtn" class="nav-btn map-btn">地图视图</button>
+                <button id="returnBtn" class="nav-btn return-btn">返回首页</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/navigation.js"></script>
+</body>
+</html>
