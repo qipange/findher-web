@@ -1,3 +1,6 @@
+// 导入翻译函数
+import { t, currentLang } from './i18n.js';
+
 // 全局变量
 let myLatitude = null;
 let myLongitude = null;
@@ -21,6 +24,9 @@ const startNavigationBtn = document.getElementById('startNavigationBtn');
 
 // 初始化
 document.addEventListener('DOMContentLoaded', () => {
+    // 应用语言翻译
+    applyTranslations();
+    
     // 从本地存储加载朋友位置
     const savedFriendLocation = localStorage.getItem('friendLocation');
     if (savedFriendLocation) {
@@ -37,6 +43,30 @@ document.addEventListener('DOMContentLoaded', () => {
     startNavigationBtn.addEventListener('click', startNavigation);
 });
 
+// 应用翻译到页面元素
+function applyTranslations() {
+    // 设置页面标题
+    document.getElementById('page-title').textContent = t('title');
+    
+    // 设置页面文本
+    document.getElementById('subtitle').textContent = t('subtitle');
+    document.getElementById('friend-location-title').textContent = t('friendLocation');
+    document.getElementById('my-location-title').textContent = t('myLocation');
+    document.getElementById('disclaimer').textContent = t('disclaimer');
+    document.getElementById('privacy-link').textContent = t('privacyPolicy');
+    document.getElementById('agreement-link').textContent = t('userAgreement');
+    document.getElementById('feedback-link').textContent = t('feedback');
+    
+    // 设置按钮文本
+    pasteBtn.textContent = t('pasteBtn');
+    setTargetBtn.textContent = t('setTargetBtn');
+    copyMyLocationBtn.textContent = t('copyMyLocationBtn');
+    startNavigationBtn.textContent = t('startNavigationBtn');
+    
+    // 设置输入框占位符
+    friendLocationInput.placeholder = `${t('pasteBtn')}${t('friendLocation')}`;
+}
+
 // 开始位置追踪
 function startLocationTracking() {
     if (navigator.geolocation) {
@@ -51,7 +81,7 @@ function startLocationTracking() {
             window.addEventListener('deviceorientation', handleOrientation);
         }
     } else {
-        alert('您的浏览器不支持地理位置服务');
+        alert(t('browserNotSupported'));
     }
 }
 
@@ -90,19 +120,19 @@ function handleLocationError(error) {
     let errorMessage;
     switch(error.code) {
         case error.PERMISSION_DENIED:
-            errorMessage = '用户拒绝了位置请求';
+            errorMessage = t('locationPermissionDenied');
             break;
         case error.POSITION_UNAVAILABLE:
-            errorMessage = '位置信息不可用';
+            errorMessage = t('locationUnavailable');
             break;
         case error.TIMEOUT:
-            errorMessage = '获取位置请求超时';
+            errorMessage = t('locationTimeout');
             break;
         case error.UNKNOWN_ERROR:
-            errorMessage = '发生未知错误';
+            errorMessage = t('locationUnknownError');
             break;
     }
-    myLocationDisplay.textContent = `错误: ${errorMessage}`;
+    myLocationDisplay.textContent = `${t('locationUnknownError')}: ${errorMessage}`;
 }
 
 // 处理设备方向
@@ -122,7 +152,7 @@ async function handlePaste() {
         const text = await navigator.clipboard.readText();
         friendLocationInput.value = text;
     } catch (err) {
-        alert('无法访问剪贴板，请手动粘贴');
+        alert(t('clipboardAccessDenied'));
     }
 }
 
@@ -130,7 +160,7 @@ async function handlePaste() {
 function setFriendLocation() {
     const locationText = friendLocationInput.value.trim();
     if (!locationText) {
-        alert('请输入朋友的位置信息');
+        alert(t('enterFriendLocation'));
         return;
     }
     
@@ -143,37 +173,37 @@ function setFriendLocation() {
         // 保存到本地存储
         localStorage.setItem('friendLocation', locationText);
         
-        alert('已设置目标位置');
+        alert(t('targetLocationSet'));
     } else {
-        alert('无法解析位置信息，请确保格式正确（度分秒格式）');
+        alert(t('invalidLocationFormat'));
     }
 }
 
 // 复制我的位置
 async function copyMyLocation() {
     if (!myLatitude || !myLongitude) {
-        alert('位置信息尚未获取，请稍候');
+        alert(t('locationNotAvailable'));
         return;
     }
     
     const locationText = myLocationDisplay.textContent;
     try {
         await navigator.clipboard.writeText(locationText);
-        alert('位置信息已复制到剪贴板');
+        alert(t('locationCopied'));
     } catch (err) {
-        alert('复制失败，请手动复制');
+        alert(t('copyFailed'));
     }
 }
 
 // 开始导航
 function startNavigation() {
     if (!myLatitude || !myLongitude) {
-        alert('您的位置信息尚未获取，请稍候');
+        alert(t('myLocationNotAvailable'));
         return;
     }
     
     if (!friendLatitude || !friendLongitude) {
-        alert('请先设置朋友的位置');
+        alert(t('friendLocationNotSet'));
         return;
     }
     

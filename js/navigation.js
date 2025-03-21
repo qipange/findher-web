@@ -1,3 +1,6 @@
+// 导入翻译函数
+import { t, currentLang } from './i18n.js';
+
 // 全局变量
 let myLatitude = null;
 let myLongitude = null;
@@ -31,6 +34,9 @@ let iconsLoaded = 0;
 
 // 初始化
 document.addEventListener('DOMContentLoaded', () => {
+    // 应用语言翻译
+    applyTranslations();
+    
     // 从会话存储获取位置信息
     myLatitude = parseFloat(sessionStorage.getItem('myLatitude'));
     myLongitude = parseFloat(sessionStorage.getItem('myLongitude'));
@@ -61,6 +67,31 @@ document.addEventListener('DOMContentLoaded', () => {
     // 开始绘制导航
     requestAnimationFrame(drawNavigation);
 });
+
+// 应用翻译到页面元素
+function applyTranslations() {
+    // 设置页面标题
+    document.getElementById('page-title').textContent = t('title') + ' - ' + t('navigationTitle');
+    
+    // 设置导航标题
+    document.getElementById('nav-title').textContent = t('navigationTitle');
+    
+    // 设置距离单位
+    document.getElementById('distance-unit').textContent = t('distance');
+    
+    // 设置信息标签
+    document.getElementById('altitude-label').textContent = t('altitude');
+    document.getElementById('speed-label').textContent = t('speed');
+    document.getElementById('accuracy-label').textContent = t('accuracy');
+    
+    // 设置位置标题
+    document.getElementById('friend-location-nav-title').textContent = t('friendLocationNav');
+    document.getElementById('my-location-nav-title').textContent = t('myLocationNav');
+    
+    // 设置按钮文本
+    mapViewBtn.textContent = t('mapViewBtn');
+    returnBtn.textContent = t('returnBtn');
+}
 
 // 加载图标
 function loadIcons() {
@@ -102,7 +133,7 @@ function startLocationTracking() {
             window.addEventListener('deviceorientation', handleOrientation);
         }
     } else {
-        alert('您的浏览器不支持地理位置服务');
+        alert(t('browserNotSupported'));
     }
 }
 
@@ -131,21 +162,21 @@ function updateMyLocation(position) {
     
     // 更新高度和速度信息
     if (position.coords.altitude !== null) {
-        altitudeValue.textContent = `${position.coords.altitude.toFixed(1)} 米`;
+        altitudeValue.textContent = `${position.coords.altitude.toFixed(1)} ${t('altitudeUnit')}`;
     } else {
-        altitudeValue.textContent = '未知 米';
+        altitudeValue.textContent = t('altitudeUnknown');
     }
     
     if (position.coords.speed !== null) {
-        speedValue.textContent = `${position.coords.speed.toFixed(1)} m/s`;
+        speedValue.textContent = `${position.coords.speed.toFixed(1)} ${t('speedUnit')}`;
     } else {
-        speedValue.textContent = '0 m/s';
+        speedValue.textContent = `0 ${t('speedUnit')}`;
     }
     
     // 添加精度信息显示
     const accuracyElement = document.getElementById('accuracyValue');
     if (accuracyElement) {
-        accuracyElement.textContent = `${Math.round(lastAccuracy)} 米`;
+        accuracyElement.textContent = `${Math.round(lastAccuracy)} ${t('accuracyUnit')}`;
     }
     
     // 计算距离
@@ -161,19 +192,19 @@ function handleLocationError(error) {
     let errorMessage;
     switch(error.code) {
         case error.PERMISSION_DENIED:
-            errorMessage = '用户拒绝了位置请求';
+            errorMessage = t('locationPermissionDenied');
             break;
         case error.POSITION_UNAVAILABLE:
-            errorMessage = '位置信息不可用';
+            errorMessage = t('locationUnavailable');
             break;
         case error.TIMEOUT:
-            errorMessage = '获取位置请求超时';
+            errorMessage = t('locationTimeout');
             break;
         case error.UNKNOWN_ERROR:
-            errorMessage = '发生未知错误';
+            errorMessage = t('locationUnknownError');
             break;
     }
-    alert(`错误: ${errorMessage}`);
+    alert(`${t('locationUnknownError')}: ${errorMessage}`);
 }
 
 // 处理设备方向
