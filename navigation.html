@@ -41,14 +41,19 @@
                 <div class="map-overlay"></div>
                 <div class="compass-indicator"></div>
             </div>
-            
+
+            <style>
+                .hidden {
+                  display: none;
+                }
+              </style>        
             <div class="location-info">
                 <div class="locations-row">
-                    <div class="friend-location-display">
+                    <div class="friend-location-display hidden">
                         <h2>朋友位置</h2>
                         <div id="friendLocationDisplay"></div>
                     </div>
-                    <div class="my-location-display">
+                    <div class="my-location-display hidden">
                         <h2>我的位置</h2>
                         <div id="myLocationDisplay"></div>
                     </div>

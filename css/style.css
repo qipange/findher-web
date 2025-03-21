@@ -440,9 +440,8 @@ footer {
     display: flex;
     gap: 12px;
     padding: 12px;
-    margin-top: auto;
+    margin-top: 0;
     position: sticky;
-    bottom: 0;
     background-color: rgba(0, 0, 0, 0.7);
     backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px);
