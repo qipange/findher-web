@@ -170,9 +170,9 @@ async function copyMyLocationWithLink() {
     const currentPath = window.location.pathname;
     let baseUrl;
     
-    if (currentPath.endsWith('index-v2.html')) {
-        // 如果当前在index-v2.html页面
-        baseUrl = window.location.origin + currentPath.replace('index-v2.html', '');
+    if (currentPath.endsWith('index.html')) {
+        // 如果当前在index.html页面
+        baseUrl = window.location.origin + currentPath.replace('index.html', '');
     } else if (currentPath.endsWith('/')) {
         // 如果当前在根目录
         baseUrl = window.location.origin + currentPath;
@@ -181,7 +181,7 @@ async function copyMyLocationWithLink() {
         baseUrl = window.location.origin + currentPath + '/';
     }
     
-    const locationLink = `${baseUrl}index-v2.html?lat=${myLatitude}&lng=${myLongitude}`;
+    const locationLink = `${baseUrl}index.html?lat=${myLatitude}&lng=${myLongitude}`;
     
     try {
         await navigator.clipboard.writeText(locationLink);
