@@ -23,24 +23,31 @@
             <p class="subtitle" id="subtitle">与同伴共享位置，不再走散</p>
         </header>
         
-        <section class="location-section friend">
-            <h2 id="friend-location-title">朋友位置</h2>
-            <div class="input-group">
-                <input type="text" id="friendLocation" placeholder="粘贴朋友的位置信息" class="location-input">
-            </div>
-            <div class="button-group">
-                <button id="pasteBtn" class="secondary-btn">粘贴</button>
-                <button id="setTargetBtn" class="primary-btn">设为目标</button>
-            </div>
-        </section>
-        
         <section class="location-section my">
             <h2 id="my-location-title">我的位置</h2>
             <div class="location-display" id="myLocation"></div>
-            <button id="copyMyLocationBtn" class="full-width-btn">复制我的位置</button>
+            <button id="copyMyLocationBtn" class="full-width-btn">复制我的位置发给同伴</button>
         </section>
         
-        <button id="startNavigationBtn" class="navigation-btn">去找他</button>
+        <section class="usage-section">
+            <h2>使用方法</h2>
+            <div class="usage-content">
+                <div class="usage-item">
+                    <div class="usage-number">1</div>
+                    <div class="usage-text">
+                        <h3>想让同伴找你</h3>
+                        <p>点击"复制我的位置发给同伴"，然后通过通讯工具发给同伴，他点击链接进入导航页面去找你，前进方向尽量与连线方向一致。</p>
+                    </div>
+                </div>
+                <div class="usage-item">
+                    <div class="usage-number">2</div>
+                    <div class="usage-text">
+                        <h3>你想去找同伴</h3>
+                        <p>请他按照第一种情况操作，发链接给你，你点击链接进入导航页面去找他，前进方向尽量与连线方向一致。</p>
+                    </div>
+                </div>
+            </div>
+        </section>
         
         <footer>
             <p class="disclaimer" id="disclaimer">位置信息仅用于导航，不会上传服务器</p>
@@ -52,6 +59,6 @@
         </footer>
     </div>
 
-    <script type="module" src="js/app.js"></script>
+    <script type="module" src="js/app-v2.js"></script>
 </body>
 </html>

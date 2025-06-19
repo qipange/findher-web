@@ -25,7 +25,7 @@ const server = https.createServer(options, (req, res) => {
     // 获取请求的文件路径，处理URL参数
     const url = new URL(req.url, `https://localhost:${PORT}`);
     let urlPath = url.pathname;
-    let filePath = path.join(__dirname, urlPath === '/' ? 'index-v2.html' : urlPath);
+    let filePath = path.join(__dirname, urlPath === '/' ? 'index.html' : urlPath);
 
     // 读取文件
     fs.readFile(filePath, (err, data) => {
