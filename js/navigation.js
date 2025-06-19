@@ -15,6 +15,10 @@ let positionHistory = [];
 const MAX_POSITION_HISTORY = 5; // 保存最近5个位置点
 let lastAccuracy = 0; // 最后一次位置精度
 
+// 虚线动画相关变量
+let dashOffset = 0;
+let animationFrameId = null;
+
 // DOM 元素
 const friendLocationDisplay = document.getElementById('friendLocationDisplay');
 const myLocationDisplay = document.getElementById('myLocationDisplay');
@@ -96,8 +100,10 @@ function applyTranslations() {
 // 加载图标
 function loadIcons() {
     // 使用SVG内联数据
-    friendIcon.src = 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24"><circle cx="12" cy="12" r="10" fill="%234285f4"/><circle cx="12" cy="8" r="4" fill="white"/><path d="M12,14 C8.7,14 6,16.7 6,20 L18,20 C18,16.7 15.3,14 12,14 Z" fill="white"/></svg>';
-    myIcon.src = 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24"><polygon points="12,0 24,24 12,18 0,24" fill="%2334a853"/></svg>';
+    // 同伴图标 - 蓝色人形图标，添加标签
+    friendIcon.src = 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24"><circle cx="12" cy="12" r="10" fill="%234285f4"/><circle cx="12" cy="8" r="4" fill="white"/><path d="M12,14 C8.7,14 6,16.7 6,20 L18,20 C18,16.7 15.3,14 12,14 Z" fill="white"/><text x="12" y="23" font-family="Arial" font-size="5" text-anchor="middle" fill="white">TA</text></svg>';
+    // 我的图标 - 绿色箭头图标，添加标签
+    myIcon.src = 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24"><circle cx="12" cy="12" r="10" fill="%2334a853"/><polygon points="12,4 16,12 12,10 8,12" fill="white"/><text x="12" y="18" font-family="Arial" font-size="5" text-anchor="middle" fill="white">我</text></svg>';
     
     friendIcon.onload = iconLoaded;
     myIcon.onload = iconLoaded;
@@ -260,15 +266,49 @@ function drawNavigation() {
     const friendX = centerX + radius * Math.sin(adjustedBearing * Math.PI / 180);
     const friendY = centerY - radius * Math.cos(adjustedBearing * Math.PI / 180);
     
-    // 绘制连接线（虚线）
+    // 绘制连接线（虚线）并添加动画效果
     ctx.beginPath();
+    // 更新虚线偏移量，创建移动效果
+    dashOffset -= 0.15; // 控制动画速度
+    if (dashOffset < -10) dashOffset = 0;
     ctx.setLineDash([5, 5]);
+    ctx.lineDashOffset = dashOffset;
     ctx.moveTo(centerX, centerY);
     ctx.lineTo(friendX, friendY);
     ctx.strokeStyle = '#2997ff';
     ctx.lineWidth = 2;
     ctx.stroke();
     ctx.setLineDash([]);
+    
+    // 在连线上绘制箭头指示方向
+    // 计算线段的角度
+    const angle = Math.atan2(friendY - centerY, friendX - centerX);
+    // 在线段上均匀分布几个箭头
+    const lineLength = Math.sqrt(Math.pow(friendX - centerX, 2) + Math.pow(friendY - centerY, 2));
+    const arrowCount = Math.floor(lineLength / 10); // 每30像素一个箭头
+    
+    for (let i = 1; i <= arrowCount; i++) {
+        // 箭头位置
+        const ratio = i / (arrowCount + 1);
+        const arrowX = centerX + (friendX - centerX) * ratio;
+        const arrowY = centerY + (friendY - centerY) * ratio;
+        
+        // 绘制箭头
+        ctx.save();
+        ctx.translate(arrowX, arrowY);
+        ctx.rotate(angle);
+        
+        // 绘制小箭头
+        ctx.beginPath();
+        ctx.moveTo(0, 0);
+        ctx.lineTo(-5, -3);
+        ctx.lineTo(-5, 3);
+        ctx.closePath();
+        ctx.fillStyle = '#2997ff';
+        ctx.fill();
+        
+        ctx.restore();
+    }
     
     // 绘制距离指示
     const midX = centerX + (friendX - centerX) / 2;

@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-QLCZHV5PHX"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-QLCZHV5PHX');
+</script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title id="page-title">FindHer - 位置共享</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>FindHer</h1>
+            <p class="subtitle" id="subtitle">与同伴共享位置，不再走散</p>
+        </header>
+        
+        <section class="location-section my">
+            <h2 id="my-location-title">我的位置</h2>
+            <div class="location-display" id="myLocation"></div>
+            <button id="copyMyLocationBtn" class="full-width-btn">复制我的位置发给同伴</button>
+        </section>
+        
+        <section class="usage-section">
+            <h2>使用方法</h2>
+            <div class="usage-content">
+                <div class="usage-item">
+                    <div class="usage-number">1</div>
+                    <div class="usage-text">
+                        <h3>想让同伴找你</h3>
+                        <p>点击"复制我的位置发给同伴"，然后通过通讯工具发给同伴，他点击链接进入导航页面去找你，前进方向尽量与连线方向一致。</p>
+                    </div>
+                </div>
+                <div class="usage-item">
+                    <div class="usage-number">2</div>
+                    <div class="usage-text">
+                        <h3>你想去找同伴</h3>
+                        <p>请他按照第一种情况操作，发链接给你，你点击链接进入导航页面去找他，前进方向尽量与连线方向一致。</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <footer>
+            <p class="disclaimer" id="disclaimer">位置信息仅用于导航，不会上传服务器</p>
+            <div class="links">
+                <a href="#" id="privacy-link">隐私政策</a> | 
+                <a href="#" id="agreement-link">用户协议</a> | 
+                <a href="#" id="feedback-link">意见反馈</a>
+            </div>
+        </footer>
+    </div>
+
+    <script type="module" src="js/app-v2.js"></script>
+</body>
+</html>
