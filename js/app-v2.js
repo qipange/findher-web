@@ -43,9 +43,23 @@ function applyTranslations() {
     document.getElementById('privacy-link').textContent = t('privacyPolicy');
     document.getElementById('agreement-link').textContent = t('userAgreement');
     document.getElementById('feedback-link').textContent = t('feedback');
+    document.getElementById('sponsor-link').textContent = t('sponsorLink');
+    
+    // 使用方法
+    document.getElementById('usage-title').textContent = t('usageTitle');
+    document.getElementById('usage-case1-title').textContent = t('usageCase1Title');
+    document.getElementById('usage-case1-desc').textContent = t('usageCase1Desc');
+    document.getElementById('usage-case2-title').textContent = t('usageCase2Title');
+    document.getElementById('usage-case2-desc').textContent = t('usageCase2Desc');
+    
+    // 广告标签
+    document.getElementById('ad-label').textContent = t('adLabel');
+    
+    // 设置初始位置文本
+    myLocationDisplay.textContent = t('gettingLocation');
     
     // 设置按钮文本
-    copyMyLocationBtn.textContent = '复制我的位置发给同伴';
+    copyMyLocationBtn.textContent = t('copyMyLocationBtnFull');
 }
 
 // 检查URL参数中的位置信息

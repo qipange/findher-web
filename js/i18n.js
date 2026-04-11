@@ -9,11 +9,22 @@ const translations = {
         'setTargetBtn': '设为目标',
         'myLocation': '我的位置',
         'copyMyLocationBtn': '复制我的位置',
+        'copyMyLocationBtnFull': '复制我的位置发给同伴',
         'startNavigationBtn': '去找他',
         'disclaimer': '位置信息仅用于导航，不会上传服务器',
         'privacyPolicy': '隐私政策',
         'userAgreement': '用户协议',
         'feedback': '意见反馈',
+        'sponsorLink': '支持我们',
+        
+        // 首页使用方法
+        'usageTitle': '使用方法',
+        'usageCase1Title': '想让同伴找你',
+        'usageCase1Desc': '点击"复制我的位置发给同伴"，然后通过通讯工具发给同伴，他点击链接进入导航页面去找你，前进方向尽量与连线方向一致。',
+        'usageCase2Title': '你想去找同伴',
+        'usageCase2Desc': '请他按照第一种情况操作，发链接给你，你点击链接进入导航页面去找他，前进方向尽量与连线方向一致。',
+        'gettingLocation': '正在获取位置...',
+        'adLabel': '广告',
         
         // 导航页文本
         'navigationTitle': '导航',
@@ -45,7 +56,35 @@ const translations = {
         'locationCopied': '位置信息已复制到剪贴板',
         'copyFailed': '复制失败，请手动复制',
         'myLocationNotAvailable': '您的位置信息尚未获取，请稍候',
-        'friendLocationNotSet': '请先设置朋友的位置'
+        'friendLocationNotSet': '请先设置朋友的位置',
+        
+        // 打赏弹窗
+        'tipTitle': '🎉 成功汇合！',
+        'tipMessage': 'FindHer 帮你找到了同伴，如果觉得有用，请支持我们继续维护~',
+        'tipUsageCount': '次成功汇合',
+        'tipCloseBtn': '别烦我',
+        'tipNeverBtn': '不再提示',
+        
+        // 赞助页
+        'sponsorTitle': '☕ 支持 FindHer',
+        'sponsorDesc': 'FindHer 是一款免费的位置共享工具，帮助走散的朋友快速汇合。如果它帮到了你，欢迎请作者喝杯咖啡，支持我们继续维护和改进~',
+        'sponsorUsageCount': '次成功汇合',
+        'sponsorFree': '免费',
+        'sponsorFreeLabel': '完全免费使用',
+        'sponsorNoAds': '无广告',
+        'sponsorNoAdsLabel': '导航页无广告',
+        'sponsorAmount': '支持金额',
+        'sponsorAmountPlaceholder': '输入金额',
+        'sponsorAmountHint': '随心意，感谢支持',
+        'sponsorCNY': '¥ 人民币',
+        'sponsorUSD': '$ 美元',
+        'sponsorPaymentMethod': '选择支付方式',
+        'sponsorWechatPay': '微信支付',
+        'sponsorThanks': '感谢你的支持！',
+        'sponsorThanksDesc': '每一份支持都是我们继续前进的动力。FindHer 会一直保持免费、简洁、好用。',
+        'sponsorShare': '分享给朋友',
+        'sponsorBackBtn': '← 返回首页',
+        'sponsorAdLabel': '广告'
     },
     'en-US': {
         // Home page text
@@ -56,11 +95,22 @@ const translations = {
         'setTargetBtn': 'Set Target',
         'myLocation': 'My Location',
         'copyMyLocationBtn': 'Copy My Location',
+        'copyMyLocationBtnFull': 'Copy My Location to Share',
         'startNavigationBtn': 'Find Them',
         'disclaimer': 'Location info is only used for navigation, not uploaded to server',
         'privacyPolicy': 'Privacy Policy',
         'userAgreement': 'User Agreement',
         'feedback': 'Feedback',
+        'sponsorLink': 'Support Us',
+        
+        // Home page usage
+        'usageTitle': 'How to Use',
+        'usageCase1Title': 'Want your friend to find you',
+        'usageCase1Desc': 'Click "Copy My Location to Share", then send the link to your friend via messaging app. They can open the navigation page to find you. Keep your direction aligned with the line.',
+        'usageCase2Title': 'You want to find your friend',
+        'usageCase2Desc': 'Ask them to follow the first method and send you the link. Open the navigation page to find them. Keep your direction aligned with the line.',
+        'gettingLocation': 'Getting location...',
+        'adLabel': 'Ad',
         
         // Navigation page text
         'navigationTitle': 'Navigation',
@@ -92,16 +142,42 @@ const translations = {
         'locationCopied': 'Location information copied to clipboard',
         'copyFailed': 'Copy failed, please copy manually',
         'myLocationNotAvailable': 'Your location information is not yet available, please wait',
-        'friendLocationNotSet': 'Please set your friend\'s location first'
+        'friendLocationNotSet': 'Please set your friend\'s location first',
+        
+        // Tip modal
+        'tipTitle': '🎉 Successfully Met Up!',
+        'tipMessage': 'FindHer helped you find your companion. If you find it useful, please support us~',
+        'tipUsageCount': 'successful meetups',
+        'tipCloseBtn': 'Leave me alone',
+        'tipNeverBtn': 'Don\'t show again',
+        
+        // Sponsor page
+        'sponsorTitle': '☕ Support FindHer',
+        'sponsorDesc': 'FindHer is a free location sharing tool that helps friends find each other when separated. If it helped you, consider buying the author a coffee to support continued development~',
+        'sponsorUsageCount': 'successful meetups',
+        'sponsorFree': 'Free',
+        'sponsorFreeLabel': 'Completely free to use',
+        'sponsorNoAds': 'No Ads',
+        'sponsorNoAdsLabel': 'No ads on navigation page',
+        'sponsorAmount': 'Support Amount',
+        'sponsorAmountPlaceholder': 'Enter amount',
+        'sponsorAmountHint': 'Any amount, thank you!',
+        'sponsorCNY': '¥ CNY',
+        'sponsorUSD': '$ USD',
+        'sponsorPaymentMethod': 'Select Payment Method',
+        'sponsorWechatPay': 'WeChat Pay',
+        'sponsorThanks': 'Thank you for your support!',
+        'sponsorThanksDesc': 'Every contribution motivates us to keep going. FindHer will always remain free, simple, and useful.',
+        'sponsorShare': 'Share with friends',
+        'sponsorBackBtn': '← Back to Home',
+        'sponsorAdLabel': 'Ad'
     }
 };
 
 // 获取用户浏览器语言
 function getUserLanguage() {
-    // 获取浏览器语言设置
     const browserLang = navigator.language || navigator.userLanguage;
     
-    // 检查是否支持该语言，如果不支持则默认使用中文
     if (browserLang.startsWith('zh')) {
         return 'zh-CN';
     } else if (translations[browserLang]) {
@@ -109,8 +185,7 @@ function getUserLanguage() {
     } else if (browserLang.startsWith('en')) {
         return 'en-US';
     } else {
-        // 默认使用中文
-        return 'zh-CN';
+        return 'en-US';
     }
 }
 

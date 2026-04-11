@@ -7,14 +7,7 @@
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
-
   gtag('config', 'G-YDZ6HQ425B');
-</script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-M49E132EYH');
 </script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
@@ -100,27 +93,27 @@
     
     <div id="tip-modal-overlay" class="tip-modal-overlay">
         <div class="tip-modal">
-            <h3>🎉 成功汇合！</h3>
-            <p>FindHer 帮你找到了同伴，如果觉得有用，请支持我们继续维护~</p>
+            <h3 id="tip-title">🎉 成功汇合！</h3>
+            <p id="tip-message">FindHer 帮你找到了同伴，如果觉得有用，请支持我们继续维护~</p>
             
             <div class="tip-stats">
                 <div class="tip-stats-number" id="tip-usage-count">0</div>
-                <div class="tip-stats-label">次成功汇合</div>
+                <div class="tip-stats-label" id="tip-stats-label">次成功汇合</div>
             </div>
             
             <div class="tip-amount-input-wrapper">
                 <span class="tip-currency">¥</span>
-                <input type="number" id="tip-amount-input" class="tip-amount-input" value="0.99" min="0.01" max="9999" step="0.01">
+                <input type="number" id="tip-amount-input" class="tip-amount-input" value="0.66" min="0.01" max="9999" step="0.01">
             </div>
             
             <div class="tip-methods">
                 <button class="tip-method-btn" data-method="wechat">
                     <span class="tip-method-icon">💚</span>
-                    <span>微信支付</span>
+                    <span id="tip-wechat-text">微信支付</span>
                 </button>
             </div>
             
-            <button class="tip-close-btn" id="tip-close-btn">下次再说</button>
+            <button class="tip-close-btn" id="tip-close-btn">别烦我</button>
             <button class="tip-never-btn" id="tip-never-btn">不再提示</button>
         </div>
     </div>

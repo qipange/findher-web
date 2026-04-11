@@ -12,7 +12,7 @@ let distance = 0;
 
 let usageCount = 0;
 let hasShownTipModal = false;
-let selectedAmount = 0.99;
+let selectedAmount = 0.66;
 let lastDistance = Infinity;
 const TIP_DISTANCE_THRESHOLD = 15;
 const TIP_USAGE_THRESHOLD = 1;
@@ -97,6 +97,21 @@ function applyTranslations() {
     // 设置按钮文本
     mapViewBtn.textContent = t('mapViewBtn');
     returnBtn.textContent = t('returnBtn');
+    
+    // 设置打赏弹窗文本
+    const tipTitle = document.getElementById('tip-title');
+    const tipMessage = document.getElementById('tip-message');
+    const tipStatsLabel = document.getElementById('tip-stats-label');
+    const tipWechatText = document.getElementById('tip-wechat-text');
+    const tipCloseBtn = document.getElementById('tip-close-btn');
+    const tipNeverBtn = document.getElementById('tip-never-btn');
+    
+    if (tipTitle) tipTitle.textContent = t('tipTitle');
+    if (tipMessage) tipMessage.textContent = t('tipMessage');
+    if (tipStatsLabel) tipStatsLabel.textContent = t('tipUsageCount');
+    if (tipWechatText) tipWechatText.textContent = currentLang === 'zh-CN' ? '微信支付' : 'WeChat Pay';
+    if (tipCloseBtn) tipCloseBtn.textContent = t('tipCloseBtn');
+    if (tipNeverBtn) tipNeverBtn.textContent = t('tipNeverBtn');
 }
 
 // 加载图标

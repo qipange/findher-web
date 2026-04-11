@@ -161,46 +161,46 @@
 <body>
     <div class="container">
         <div class="sponsor-container">
-            <a href="/" class="back-btn">← 返回首页</a>
+            <a href="/" class="back-btn" id="back-btn">← 返回首页</a>
             
             <div class="sponsor-header">
-                <h1>☕ 支持 FindHer</h1>
-                <p>FindHer 是一款免费的位置共享工具，帮助走散的朋友快速汇合。如果它帮到了你，欢迎请作者喝杯咖啡，支持我们继续维护和改进~</p>
+                <h1 id="sponsor-title">☕ 支持 FindHer</h1>
+                <p id="sponsor-desc">FindHer 是一款免费的位置共享工具，帮助走散的朋友快速汇合。如果它帮到了你，欢迎请作者喝杯咖啡，支持我们继续维护和改进~</p>
             </div>
             
             <div class="sponsor-stats">
                 <div class="sponsor-stat">
                     <div class="sponsor-stat-number" id="usage-count">0</div>
-                    <div class="sponsor-stat-label">次成功汇合</div>
+                    <div class="sponsor-stat-label" id="usage-label">次成功汇合</div>
                 </div>
                 <div class="sponsor-stat">
-                    <div class="sponsor-stat-number">免费</div>
-                    <div class="sponsor-stat-label">完全免费使用</div>
+                    <div class="sponsor-stat-number" id="free-text">免费</div>
+                    <div class="sponsor-stat-label" id="free-label">完全免费使用</div>
                 </div>
                 <div class="sponsor-stat">
-                    <div class="sponsor-stat-number">无广告</div>
-                    <div class="sponsor-stat-label">导航页无广告</div>
+                    <div class="sponsor-stat-number" id="noads-text">无广告</div>
+                    <div class="sponsor-stat-label" id="noads-label">导航页无广告</div>
                 </div>
             </div>
             
             <div class="sponsor-methods">
-                <h2>支持金额</h2>
+                <h2 id="amount-title">支持金额</h2>
                 <div class="amount-input-container">
                     <span class="currency-symbol" id="currency-symbol">¥</span>
-                    <input type="number" id="amount-input" class="amount-input" placeholder="输入金额" min="0.01" max="9999" step="0.01" value="0.99">
-                    <span class="amount-hint">随心意，感谢支持</span>
+                    <input type="number" id="amount-input" class="amount-input" placeholder="输入金额" min="0.01" max="9999" step="0.01" value="0.66">
+                    <span class="amount-hint" id="amount-hint">随心意，感谢支持</span>
                 </div>
                 
                 <div class="currency-switch">
-                    <button class="currency-btn active" data-currency="CNY">¥ 人民币</button>
-                    <button class="currency-btn" data-currency="USD">$ 美元</button>
+                    <button class="currency-btn active" data-currency="CNY" id="cny-btn">¥ 人民币</button>
+                    <button class="currency-btn" data-currency="USD" id="usd-btn">$ 美元</button>
                 </div>
                 
-                <h2>选择支付方式</h2>
+                <h2 id="payment-title">选择支付方式</h2>
                 <div class="sponsor-method-grid">
                     <div class="sponsor-method-item" data-currency="CNY" id="wechat-pay">
                         <div class="sponsor-method-icon">💚</div>
-                        <div class="sponsor-method-name">微信支付</div>
+                        <div class="sponsor-method-name" id="wechat-name">微信支付</div>
                     </div>
                     <div class="sponsor-method-item" data-currency="USD" id="buymeacoffee">
                         <div class="sponsor-method-icon">☕</div>
@@ -210,16 +210,16 @@
             </div>
             
             <div class="sponsor-thanks">
-                <h3>感谢你的支持！</h3>
-                <p>每一份支持都是我们继续前进的动力。FindHer 会一直保持免费、简洁、好用。</p>
+                <h3 id="thanks-title">感谢你的支持！</h3>
+                <p id="thanks-desc">每一份支持都是我们继续前进的动力。FindHer 会一直保持免费、简洁、好用。</p>
                 <button class="share-btn" id="share-btn">
                     <span>📤</span>
-                    <span>分享给朋友</span>
+                    <span id="share-text">分享给朋友</span>
                 </button>
             </div>
             
             <div class="ad-container" style="margin-top: 30px;">
-                <div class="ad-label">广告</div>
+                <div class="ad-label" id="ad-label">广告</div>
                 <ins class="adsbygoogle"
                      style="display:block"
                      data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
@@ -249,12 +249,36 @@
     </div>
 
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX" crossorigin="anonymous"></script>
-    <script>
+    <script type="module">
+        import { t, currentLang } from './js/i18n.js';
+        
+        function applyTranslations() {
+            document.getElementById('back-btn').textContent = t('sponsorBackBtn');
+            document.getElementById('sponsor-title').textContent = t('sponsorTitle');
+            document.getElementById('sponsor-desc').textContent = t('sponsorDesc');
+            document.getElementById('usage-label').textContent = t('sponsorUsageCount');
+            document.getElementById('free-text').textContent = t('sponsorFree');
+            document.getElementById('free-label').textContent = t('sponsorFreeLabel');
+            document.getElementById('noads-text').textContent = t('sponsorNoAds');
+            document.getElementById('noads-label').textContent = t('sponsorNoAdsLabel');
+            document.getElementById('amount-title').textContent = t('sponsorAmount');
+            document.getElementById('amount-input').placeholder = t('sponsorAmountPlaceholder');
+            document.getElementById('amount-hint').textContent = t('sponsorAmountHint');
+            document.getElementById('cny-btn').textContent = t('sponsorCNY');
+            document.getElementById('usd-btn').textContent = t('sponsorUSD');
+            document.getElementById('payment-title').textContent = t('sponsorPaymentMethod');
+            document.getElementById('wechat-name').textContent = t('sponsorWechatPay');
+            document.getElementById('thanks-title').textContent = t('sponsorThanks');
+            document.getElementById('thanks-desc').textContent = t('sponsorThanksDesc');
+            document.getElementById('share-text').textContent = t('sponsorShare');
+            document.getElementById('ad-label').textContent = t('sponsorAdLabel');
+        }
+        
         const CONFIG = {
             wechat: {
-                title: '微信支付',
+                title: currentLang === 'zh-CN' ? '微信支付' : 'WeChat Pay',
                 qrcode: 'images/wechat-pay.png',
-                hint: '打开微信扫一扫或长按识别'
+                hint: currentLang === 'zh-CN' ? '打开微信扫一扫或长按识别' : 'Open WeChat and scan'
             },
             buymeacoffee: {
                 url: 'https://www.buymeacoffee.com/your-username'
@@ -262,14 +286,16 @@
         };
         
         const CURRENCY = {
-            CNY: { symbol: '¥', default: 0.99, min: 0.01 },
-            USD: { symbol: '$', default: 1, min: 0.01 }
+            CNY: { symbol: '¥', default: 0.66, min: 0.01 },
+            USD: { symbol: '$', default: 0.66, min: 0.01 }
         };
         
-        let selectedAmount = 0.99;
+        let selectedAmount = 0.66;
         let currentCurrency = 'CNY';
         
         document.addEventListener('DOMContentLoaded', () => {
+            applyTranslations();
+            
             const usageCount = localStorage.getItem('findher_usage_count') || 0;
             document.getElementById('usage-count').textContent = usageCount;
             
