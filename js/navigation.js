@@ -10,6 +10,13 @@ let watchId = null;
 let compassHeading = 0;
 let distance = 0;
 
+let usageCount = 0;
+let hasShownTipModal = false;
+let selectedAmount = 5;
+let lastDistance = Infinity;
+const TIP_DISTANCE_THRESHOLD = 15;
+const TIP_USAGE_THRESHOLD = 1;
+
 // 位置平滑处理相关变量
 let positionHistory = [];
 const MAX_POSITION_HISTORY = 5; // 保存最近5个位置点
@@ -38,37 +45,32 @@ let iconsLoaded = 0;
 
 // 初始化
 document.addEventListener('DOMContentLoaded', () => {
-    // 应用语言翻译
     applyTranslations();
     
-    // 从会话存储获取位置信息
+    loadUsageStats();
+    
     myLatitude = parseFloat(sessionStorage.getItem('myLatitude'));
     myLongitude = parseFloat(sessionStorage.getItem('myLongitude'));
     friendLatitude = parseFloat(sessionStorage.getItem('friendLatitude'));
     friendLongitude = parseFloat(sessionStorage.getItem('friendLongitude'));
     
-    // 加载图标
     loadIcons();
     
-    // 显示初始位置信息
     updateLocationDisplays();
     
-    // 开始位置追踪
     startLocationTracking();
     
-    // 事件监听器
+    setupTipModal();
+    
     backBtn.addEventListener('click', goBack);
     returnBtn.addEventListener('click', goBack);
     mapViewBtn.addEventListener('click', openMapView);
     
-    // 设置Canvas大小
     resizeCanvas();
     window.addEventListener('resize', resizeCanvas);
     
-    // 初始化指南针指示器
     updateCompassIndicator();
     
-    // 开始绘制导航
     requestAnimationFrame(drawNavigation);
 });
 
@@ -189,7 +191,8 @@ function updateMyLocation(position) {
     distance = calculateDistance(myLatitude, myLongitude, friendLatitude, friendLongitude);
     distanceValue.textContent = Math.round(distance);
     
-    // 更新位置显示
+    checkAndShowTipModal();
+    
     updateLocationDisplays();
 }
 
@@ -531,7 +534,113 @@ function drawGrid(centerX, centerY, radius) {
 
 // 打开地图视图
 function openMapView() {
-    // 这里可以实现打开地图的功能
-    // 例如使用第三方地图服务
     alert('地图功能开发中');
+}
+
+function loadUsageStats() {
+    const stored = localStorage.getItem('findher_usage_count');
+    usageCount = stored ? parseInt(stored, 10) : 0;
+    
+    const neverTip = localStorage.getItem('findher_never_tip');
+    if (neverTip === 'true') {
+        hasShownTipModal = true;
+    }
+}
+
+function saveUsageCount() {
+    localStorage.setItem('findher_usage_count', usageCount.toString());
+}
+
+function incrementUsageCount() {
+    usageCount++;
+    saveUsageCount();
+}
+
+function checkAndShowTipModal() {
+    if (hasShownTipModal) return;
+    
+    if (distance <= TIP_DISTANCE_THRESHOLD && lastDistance > TIP_DISTANCE_THRESHOLD) {
+        incrementUsageCount();
+        
+        if (usageCount >= TIP_USAGE_THRESHOLD) {
+            showTipModal();
+        }
+    }
+    
+    lastDistance = distance;
+}
+
+function showTipModal() {
+    hasShownTipModal = true;
+    
+    const countElement = document.getElementById('tip-usage-count');
+    if (countElement) {
+        countElement.textContent = usageCount;
+    }
+    
+    const overlay = document.getElementById('tip-modal-overlay');
+    if (overlay) {
+        overlay.classList.add('show');
+    }
+}
+
+function hideTipModal() {
+    const overlay = document.getElementById('tip-modal-overlay');
+    if (overlay) {
+        overlay.classList.remove('show');
+    }
+}
+
+function setupTipModal() {
+    const amountInput = document.getElementById('tip-amount-input');
+    if (amountInput) {
+        amountInput.addEventListener('input', () => {
+            const value = parseFloat(amountInput.value);
+            if (value > 0) {
+                selectedAmount = value;
+            }
+        });
+        
+        amountInput.addEventListener('blur', () => {
+            if (!amountInput.value || parseFloat(amountInput.value) < 1) {
+                amountInput.value = 1;
+                selectedAmount = 1;
+            }
+        });
+    }
+    
+    const methodBtns = document.querySelectorAll('.tip-method-btn');
+    methodBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+            const method = btn.dataset.method;
+            openPaymentPage(method, selectedAmount);
+        });
+    });
+    
+    const closeBtn = document.getElementById('tip-close-btn');
+    if (closeBtn) {
+        closeBtn.addEventListener('click', hideTipModal);
+    }
+    
+    const neverBtn = document.getElementById('tip-never-btn');
+    if (neverBtn) {
+        neverBtn.addEventListener('click', () => {
+            localStorage.setItem('findher_never_tip', 'true');
+            hideTipModal();
+        });
+    }
+    
+    const overlay = document.getElementById('tip-modal-overlay');
+    if (overlay) {
+        overlay.addEventListener('click', (e) => {
+            if (e.target === overlay) {
+                hideTipModal();
+            }
+        });
+    }
+}
+
+function openPaymentPage(method, amount) {
+    const sponsorPage = `sponsor.html?method=${method}&amount=${amount}`;
+    window.open(sponsorPage, '_blank');
 }

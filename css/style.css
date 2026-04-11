@@ -605,3 +605,324 @@ footer {
     transform: translateY(-2px);
     box-shadow: 0 5px 15px rgba(41, 151, 255, 0.3);
 }
+
+.ad-container {
+    background: rgba(30, 30, 30, 0.5);
+    border-radius: 12px;
+    padding: 15px;
+    margin-top: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.ad-label {
+    font-size: 10px;
+    color: rgba(255, 255, 255, 0.4);
+    text-align: center;
+    margin-bottom: 8px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.ad-placeholder {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 8px;
+    min-height: 90px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: rgba(255, 255, 255, 0.3);
+    font-size: 12px;
+}
+
+.tip-modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+}
+
+.tip-modal-overlay.show {
+    opacity: 1;
+    visibility: visible;
+}
+
+.tip-modal {
+    background: linear-gradient(180deg, #1a1a1a 0%, #0a0a0a 100%);
+    border-radius: 20px;
+    padding: 30px;
+    max-width: 320px;
+    width: 90%;
+    text-align: center;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+    transform: scale(0.9);
+    transition: transform 0.3s ease;
+}
+
+.tip-modal-overlay.show .tip-modal {
+    transform: scale(1);
+}
+
+.tip-modal h3 {
+    color: #2997ff;
+    font-size: 20px;
+    margin-bottom: 10px;
+    font-weight: 600;
+}
+
+.tip-modal p {
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 14px;
+    margin-bottom: 20px;
+    line-height: 1.6;
+}
+
+.tip-stats {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 12px;
+    padding: 15px;
+    margin-bottom: 20px;
+}
+
+.tip-stats-number {
+    font-size: 32px;
+    font-weight: 700;
+    color: #34a853;
+}
+
+.tip-stats-label {
+    font-size: 12px;
+    color: rgba(255, 255, 255, 0.5);
+    margin-top: 5px;
+}
+
+.tip-amount-input-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    margin-bottom: 20px;
+    padding: 15px;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 12px;
+}
+
+.tip-currency {
+    font-size: 24px;
+    font-weight: 600;
+    color: #2997ff;
+}
+
+.tip-amount-input {
+    width: 80px;
+    padding: 8px 12px;
+    font-size: 24px;
+    font-weight: 600;
+    text-align: center;
+    background: rgba(0, 0, 0, 0.3);
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    border-radius: 10px;
+    color: #f5f5f7;
+    outline: none;
+    transition: all 0.3s ease;
+}
+
+.tip-amount-input:focus {
+    border-color: #2997ff;
+    box-shadow: 0 0 0 3px rgba(41, 151, 255, 0.2);
+}
+
+.tip-amount-input::-webkit-outer-spin-button,
+.tip-amount-input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+.tip-amount-input[type=number] {
+    -moz-appearance: textfield;
+}
+
+.tip-methods {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.tip-method-btn {
+    flex: 1;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    padding: 12px;
+    color: #f5f5f7;
+    font-size: 13px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+}
+
+.tip-method-btn:hover {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.tip-method-icon {
+    font-size: 24px;
+}
+
+.tip-close-btn {
+    background: transparent;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 12px;
+    padding: 10px 20px;
+    color: rgba(255, 255, 255, 0.6);
+    font-size: 14px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.tip-close-btn:hover {
+    background: rgba(255, 255, 255, 0.1);
+    color: #f5f5f7;
+}
+
+.tip-never-btn {
+    background: transparent;
+    border: none;
+    color: rgba(255, 255, 255, 0.4);
+    font-size: 12px;
+    cursor: pointer;
+    margin-top: 15px;
+    text-decoration: underline;
+}
+
+.tip-never-btn:hover {
+    color: rgba(255, 255, 255, 0.6);
+}
+
+.sponsor-container {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.sponsor-header {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.sponsor-header h1 {
+    color: #2997ff;
+    font-size: 28px;
+    margin-bottom: 15px;
+}
+
+.sponsor-header p {
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 16px;
+    line-height: 1.8;
+}
+
+.sponsor-stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 15px;
+    margin-bottom: 30px;
+}
+
+.sponsor-stat {
+    background: rgba(30, 30, 30, 0.7);
+    border-radius: 16px;
+    padding: 20px;
+    text-align: center;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.sponsor-stat-number {
+    font-size: 28px;
+    font-weight: 700;
+    color: #2997ff;
+}
+
+.sponsor-stat-label {
+    font-size: 12px;
+    color: rgba(255, 255, 255, 0.5);
+    margin-top: 5px;
+}
+
+.sponsor-methods {
+    background: rgba(30, 30, 30, 0.7);
+    border-radius: 16px;
+    padding: 25px;
+    margin-bottom: 30px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.sponsor-methods h2 {
+    font-size: 18px;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.sponsor-method-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+}
+
+.sponsor-method-item {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 12px;
+    padding: 20px;
+    text-align: center;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.sponsor-method-item:hover {
+    background: rgba(255, 255, 255, 0.1);
+    transform: translateY(-2px);
+}
+
+.sponsor-method-icon {
+    font-size: 36px;
+    margin-bottom: 10px;
+}
+
+.sponsor-method-name {
+    font-size: 14px;
+    color: #f5f5f7;
+    font-weight: 500;
+}
+
+.sponsor-thanks {
+    text-align: center;
+    padding: 30px;
+    background: rgba(41, 151, 255, 0.1);
+    border-radius: 16px;
+    border: 1px solid rgba(41, 151, 255, 0.2);
+}
+
+.sponsor-thanks h3 {
+    color: #2997ff;
+    font-size: 18px;
+    margin-bottom: 10px;
+}
+
+.sponsor-thanks p {
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 14px;
+    line-height: 1.6;
+}

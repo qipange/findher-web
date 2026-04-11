@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>支持 FindHer - 请作者喝杯咖啡</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap">
+    <style>
+        .amount-input-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 25px;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 16px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .currency-symbol {
+            font-size: 28px;
+            font-weight: 600;
+            color: #2997ff;
+        }
+        
+        .amount-input {
+            width: 120px;
+            padding: 12px 16px;
+            font-size: 28px;
+            font-weight: 600;
+            text-align: center;
+            background: rgba(0, 0, 0, 0.3);
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            border-radius: 12px;
+            color: #f5f5f7;
+            outline: none;
+            transition: all 0.3s ease;
+        }
+        
+        .amount-input:focus {
+            border-color: #2997ff;
+            box-shadow: 0 0 0 3px rgba(41, 151, 255, 0.2);
+        }
+        
+        .amount-input::placeholder {
+            color: rgba(255, 255, 255, 0.3);
+            font-size: 16px;
+        }
+        
+        .amount-input::-webkit-outer-spin-button,
+        .amount-input::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+        
+        .amount-input[type=number] {
+            -moz-appearance: textfield;
+        }
+        
+        .amount-hint {
+            font-size: 14px;
+            color: rgba(255, 255, 255, 0.5);
+        }
+        
+        .qrcode-image {
+            width: 200px;
+            height: 200px;
+            border-radius: 12px;
+            object-fit: contain;
+            background: white;
+            padding: 10px;
+        }
+        
+        .payment-info {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+            padding: 15px;
+            margin-top: 15px;
+            font-size: 14px;
+            color: rgba(255, 255, 255, 0.7);
+        }
+        
+        .payment-info strong {
+            color: #2997ff;
+        }
+        
+        .sponsor-list {
+            background: rgba(30, 30, 30, 0.7);
+            border-radius: 16px;
+            padding: 25px;
+            margin-top: 30px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .sponsor-list h2 {
+            font-size: 18px;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+        
+        .sponsor-list-content {
+            text-align: center;
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 14px;
+        }
+        
+        .share-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 12px;
+            padding: 12px 24px;
+            color: #f5f5f7;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 20px;
+        }
+        
+        .share-btn:hover {
+            background: rgba(255, 255, 255, 0.15);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="sponsor-container">
+            <a href="/" class="back-btn">← 返回首页</a>
+            
+            <div class="sponsor-header">
+                <h1>☕ 支持 FindHer</h1>
+                <p>FindHer 是一款免费的位置共享工具，帮助走散的朋友快速汇合。如果它帮到了你，欢迎请作者喝杯咖啡，支持我们继续维护和改进~</p>
+            </div>
+            
+            <div class="sponsor-stats">
+                <div class="sponsor-stat">
+                    <div class="sponsor-stat-number" id="usage-count">0</div>
+                    <div class="sponsor-stat-label">次成功汇合</div>
+                </div>
+                <div class="sponsor-stat">
+                    <div class="sponsor-stat-number">免费</div>
+                    <div class="sponsor-stat-label">完全免费使用</div>
+                </div>
+                <div class="sponsor-stat">
+                    <div class="sponsor-stat-number">无广告</div>
+                    <div class="sponsor-stat-label">导航页无广告</div>
+                </div>
+            </div>
+            
+            <div class="sponsor-methods">
+                <h2>支持金额</h2>
+                <div class="amount-input-container">
+                    <span class="currency-symbol">¥</span>
+                    <input type="number" id="amount-input" class="amount-input" placeholder="输入金额" min="1" max="9999" value="5">
+                    <span class="amount-hint">随心意，感谢支持</span>
+                </div>
+                
+                <h2>选择支付方式</h2>
+                <div class="sponsor-method-grid">
+                    <div class="sponsor-method-item" id="wechat-pay">
+                        <div class="sponsor-method-icon">💚</div>
+                        <div class="sponsor-method-name">微信支付</div>
+                    </div>
+                    <div class="sponsor-method-item" id="alipay">
+                        <div class="sponsor-method-icon">💙</div>
+                        <div class="sponsor-method-name">支付宝</div>
+                    </div>
+                    <div class="sponsor-method-item" id="afdian">
+                        <div class="sponsor-method-icon">❤️</div>
+                        <div class="sponsor-method-name">爱发电</div>
+                    </div>
+                    <div class="sponsor-method-item" id="buymeacoffee">
+                        <div class="sponsor-method-icon">☕</div>
+                        <div class="sponsor-method-name">Buy Me a Coffee</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="sponsor-thanks">
+                <h3>感谢你的支持！</h3>
+                <p>每一份支持都是我们继续前进的动力。FindHer 会一直保持免费、简洁、好用。</p>
+                <button class="share-btn" id="share-btn">
+                    <span>📤</span>
+                    <span>分享给朋友</span>
+                </button>
+            </div>
+            
+            <div class="ad-container" style="margin-top: 30px;">
+                <div class="ad-label">广告</div>
+                <ins class="adsbygoogle"
+                     style="display:block"
+                     data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
+                     data-ad-slot="XXXXXXXXXX"
+                     data-ad-format="auto"
+                     data-full-width-responsive="true"></ins>
+            </div>
+        </div>
+    </div>
+    
+    <div id="qrcode-modal" class="tip-modal-overlay">
+        <div class="tip-modal">
+            <h3 id="qrcode-title">扫码支持</h3>
+            <div id="qrcode-container" style="margin: 20px 0; display: flex; justify-content: center;">
+                <img id="qrcode-image" class="qrcode-image" src="" alt="收款码" style="display: none;">
+                <div id="qrcode-placeholder" style="width: 200px; height: 200px; background: rgba(255,255,255,0.1); border-radius: 12px; display: flex; align-items: center; justify-content: center; color: rgba(255,255,255,0.5); flex-direction: column;">
+                    <div style="font-size: 48px; margin-bottom: 10px;">💳</div>
+                    <div style="font-size: 12px;">收款码加载中...</div>
+                </div>
+            </div>
+            <div class="payment-info" id="payment-info">
+                支持金额：<strong>¥<span id="payment-amount">5</span></strong>
+            </div>
+            <p id="qrcode-hint" style="font-size: 12px; color: rgba(255,255,255,0.5); margin-top: 15px;">长按图片保存，打开对应APP扫码支付</p>
+            <button class="tip-close-btn" id="qrcode-close">关闭</button>
+        </div>
+    </div>
+
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX" crossorigin="anonymous"></script>
+    <script>
+        const CONFIG = {
+            wechat: {
+                title: '微信支付',
+                qrcode: 'images/wechat-pay.png',
+                hint: '打开微信扫一扫或长按识别'
+            },
+            alipay: {
+                title: '支付宝',
+                qrcode: 'images/alipay.png',
+                hint: '打开支付宝扫一扫'
+            },
+            afdian: {
+                url: 'https://afdian.net/@your-username'
+            },
+            buymeacoffee: {
+                url: 'https://www.buymeacoffee.com/your-username'
+            }
+        };
+        
+        let selectedAmount = 5;
+        
+        document.addEventListener('DOMContentLoaded', () => {
+            const usageCount = localStorage.getItem('findher_usage_count') || 0;
+            document.getElementById('usage-count').textContent = usageCount;
+            
+            const urlParams = new URLSearchParams(window.location.search);
+            const method = urlParams.get('method');
+            const amount = urlParams.get('amount');
+            
+            if (amount) {
+                selectedAmount = parseInt(amount, 10);
+                const amountInput = document.getElementById('amount-input');
+                if (amountInput) {
+                    amountInput.value = selectedAmount;
+                }
+            }
+            
+            if (method && CONFIG[method]) {
+                showQRCode(method);
+            }
+            
+            setupAmountInput();
+            setupPaymentButtons();
+            setupShareButton();
+            setupModalClose();
+        });
+        
+        function setupAmountInput() {
+            const amountInput = document.getElementById('amount-input');
+            if (amountInput) {
+                amountInput.addEventListener('input', () => {
+                    const value = parseFloat(amountInput.value);
+                    if (value > 0) {
+                        selectedAmount = value;
+                    }
+                });
+                
+                amountInput.addEventListener('blur', () => {
+                    if (!amountInput.value || parseFloat(amountInput.value) < 1) {
+                        amountInput.value = 1;
+                        selectedAmount = 1;
+                    }
+                });
+            }
+        }
+        
+        function setupPaymentButtons() {
+            document.getElementById('wechat-pay').addEventListener('click', () => showQRCode('wechat'));
+            document.getElementById('alipay').addEventListener('click', () => showQRCode('alipay'));
+            document.getElementById('afdian').addEventListener('click', () => {
+                window.open(CONFIG.afdian.url, '_blank');
+            });
+            document.getElementById('buymeacoffee').addEventListener('click', () => {
+                window.open(CONFIG.buymeacoffee.url, '_blank');
+            });
+        }
+        
+        function setupShareButton() {
+            document.getElementById('share-btn').addEventListener('click', async () => {
+                const shareData = {
+                    title: 'FindHer - 位置共享工具',
+                    text: '一个帮助走散的朋友快速汇合的免费工具',
+                    url: window.location.origin
+                };
+                
+                if (navigator.share) {
+                    try {
+                        await navigator.share(shareData);
+                    } catch (err) {
+                        console.log('分享取消');
+                    }
+                } else {
+                    copyToClipboard(shareData.url);
+                    alert('链接已复制到剪贴板！');
+                }
+            });
+        }
+        
+        function setupModalClose() {
+            document.getElementById('qrcode-close').addEventListener('click', hideQRCode);
+            document.getElementById('qrcode-modal').addEventListener('click', (e) => {
+                if (e.target.id === 'qrcode-modal') {
+                    hideQRCode();
+                }
+            });
+        }
+        
+        function showQRCode(method) {
+            const config = CONFIG[method];
+            if (!config) return;
+            
+            if (config.url) {
+                window.open(config.url, '_blank');
+                return;
+            }
+            
+            document.getElementById('qrcode-title').textContent = config.title;
+            document.getElementById('qrcode-hint').textContent = config.hint;
+            document.getElementById('payment-amount').textContent = selectedAmount;
+            
+            const qrImage = document.getElementById('qrcode-image');
+            const qrPlaceholder = document.getElementById('qrcode-placeholder');
+            
+            qrImage.src = config.qrcode;
+            qrImage.onload = () => {
+                qrImage.style.display = 'block';
+                qrPlaceholder.style.display = 'none';
+            };
+            qrImage.onerror = () => {
+                qrImage.style.display = 'none';
+                qrPlaceholder.style.display = 'flex';
+                qrPlaceholder.innerHTML = `
+                    <div style="font-size: 48px; margin-bottom: 10px;">${method === 'wechat' ? '💚' : '💙'}</div>
+                    <div style="font-size: 12px; text-align: center; padding: 0 20px;">请将收款码图片放置在<br><code style="background: rgba(255,255,255,0.1); padding: 2px 6px; border-radius: 4px;">${config.qrcode}</code></div>
+                `;
+            };
+            
+            document.getElementById('qrcode-modal').classList.add('show');
+        }
+        
+        function hideQRCode() {
+            document.getElementById('qrcode-modal').classList.remove('show');
+        }
+        
+        async function copyToClipboard(text) {
+            try {
+                await navigator.clipboard.writeText(text);
+            } catch (err) {
+                const textArea = document.createElement('textarea');
+                textArea.value = text;
+                document.body.appendChild(textArea);
+                textArea.select();
+                document.execCommand('copy');
+                document.body.removeChild(textArea);
+            }
+        }
+    </script>
+</body>
+</html>
