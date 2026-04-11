@@ -12,7 +12,7 @@ let distance = 0;
 
 let usageCount = 0;
 let hasShownTipModal = false;
-let selectedAmount = 5;
+let selectedAmount = 0.99;
 let lastDistance = Infinity;
 const TIP_DISTANCE_THRESHOLD = 15;
 const TIP_USAGE_THRESHOLD = 1;
@@ -602,9 +602,9 @@ function setupTipModal() {
         });
         
         amountInput.addEventListener('blur', () => {
-            if (!amountInput.value || parseFloat(amountInput.value) < 1) {
-                amountInput.value = 1;
-                selectedAmount = 1;
+            if (!amountInput.value || parseFloat(amountInput.value) < 0.01) {
+                amountInput.value = 0.01;
+                selectedAmount = 0.01;
             }
         });
     }

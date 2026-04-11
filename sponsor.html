@@ -64,6 +64,38 @@
             color: rgba(255, 255, 255, 0.5);
         }
         
+        .currency-switch {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        
+        .currency-btn {
+            padding: 8px 16px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 13px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .currency-btn:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+        
+        .currency-btn.active {
+            background: #2997ff;
+            border-color: #2997ff;
+            color: white;
+        }
+        
+        .sponsor-method-item.hidden {
+            display: none;
+        }
+        
         .qrcode-image {
             width: 200px;
             height: 200px;
@@ -154,26 +186,31 @@
             <div class="sponsor-methods">
                 <h2>支持金额</h2>
                 <div class="amount-input-container">
-                    <span class="currency-symbol">¥</span>
-                    <input type="number" id="amount-input" class="amount-input" placeholder="输入金额" min="1" max="9999" value="5">
+                    <span class="currency-symbol" id="currency-symbol">¥</span>
+                    <input type="number" id="amount-input" class="amount-input" placeholder="输入金额" min="0.01" max="9999" step="0.01" value="0.99">
                     <span class="amount-hint">随心意，感谢支持</span>
+                </div>
+                
+                <div class="currency-switch">
+                    <button class="currency-btn active" data-currency="CNY">¥ 人民币</button>
+                    <button class="currency-btn" data-currency="USD">$ 美元</button>
                 </div>
                 
                 <h2>选择支付方式</h2>
                 <div class="sponsor-method-grid">
-                    <div class="sponsor-method-item" id="wechat-pay">
+                    <div class="sponsor-method-item" data-currency="CNY" id="wechat-pay">
                         <div class="sponsor-method-icon">💚</div>
                         <div class="sponsor-method-name">微信支付</div>
                     </div>
-                    <div class="sponsor-method-item" id="alipay">
+                    <div class="sponsor-method-item" data-currency="CNY" id="alipay">
                         <div class="sponsor-method-icon">💙</div>
                         <div class="sponsor-method-name">支付宝</div>
                     </div>
-                    <div class="sponsor-method-item" id="afdian">
+                    <div class="sponsor-method-item" data-currency="CNY" id="afdian">
                         <div class="sponsor-method-icon">❤️</div>
                         <div class="sponsor-method-name">爱发电</div>
                     </div>
-                    <div class="sponsor-method-item" id="buymeacoffee">
+                    <div class="sponsor-method-item" data-currency="USD" id="buymeacoffee">
                         <div class="sponsor-method-icon">☕</div>
                         <div class="sponsor-method-name">Buy Me a Coffee</div>
                     </div>
@@ -240,7 +277,13 @@
             }
         };
         
-        let selectedAmount = 5;
+        const CURRENCY = {
+            CNY: { symbol: '¥', default: 0.99, min: 0.01 },
+            USD: { symbol: '$', default: 1, min: 0.01 }
+        };
+        
+        let selectedAmount = 0.99;
+        let currentCurrency = 'CNY';
         
         document.addEventListener('DOMContentLoaded', () => {
             const usageCount = localStorage.getItem('findher_usage_count') || 0;
@@ -251,7 +294,7 @@
             const amount = urlParams.get('amount');
             
             if (amount) {
-                selectedAmount = parseInt(amount, 10);
+                selectedAmount = parseFloat(amount);
                 const amountInput = document.getElementById('amount-input');
                 if (amountInput) {
                     amountInput.value = selectedAmount;
@@ -263,6 +306,7 @@
             }
             
             setupAmountInput();
+            setupCurrencySwitch();
             setupPaymentButtons();
             setupShareButton();
             setupModalClose();
@@ -279,12 +323,47 @@
                 });
                 
                 amountInput.addEventListener('blur', () => {
-                    if (!amountInput.value || parseFloat(amountInput.value) < 1) {
-                        amountInput.value = 1;
-                        selectedAmount = 1;
+                    const minValue = CURRENCY[currentCurrency].min;
+                    if (!amountInput.value || parseFloat(amountInput.value) < minValue) {
+                        amountInput.value = minValue;
+                        selectedAmount = minValue;
                     }
                 });
             }
+        }
+        
+        function setupCurrencySwitch() {
+            const currencyBtns = document.querySelectorAll('.currency-btn');
+            currencyBtns.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    currencyBtns.forEach(b => b.classList.remove('active'));
+                    btn.classList.add('active');
+                    
+                    currentCurrency = btn.dataset.currency;
+                    const currencyConfig = CURRENCY[currentCurrency];
+                    
+                    document.getElementById('currency-symbol').textContent = currencyConfig.symbol;
+                    
+                    const amountInput = document.getElementById('amount-input');
+                    amountInput.value = currencyConfig.default;
+                    amountInput.min = currencyConfig.min;
+                    selectedAmount = currencyConfig.default;
+                    
+                    updatePaymentMethods();
+                });
+            });
+        }
+        
+        function updatePaymentMethods() {
+            const methodItems = document.querySelectorAll('.sponsor-method-item');
+            methodItems.forEach(item => {
+                const itemCurrency = item.dataset.currency;
+                if (itemCurrency === currentCurrency || !itemCurrency) {
+                    item.classList.remove('hidden');
+                } else {
+                    item.classList.add('hidden');
+                }
+            });
         }
         
         function setupPaymentButtons() {
