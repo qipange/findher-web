@@ -1,23 +1,18 @@
 {
   "name": "findher",
   "version": "1.0.0",
-  "description": "位置共享应用 - Google OAuth集成版",
+  "description": "位置共享应用 - 室内近距离导航",
   "main": "server.js",
   "scripts": {
     "start": "node server.js",
-    "dev": "nodemon server.js",
-    "setup-oauth": "node scripts/setup-oauth.js"
+    "dev": "nodemon server.js"
   },
   "dependencies": {
     "express": "^4.18.2",
-    "express-session": "^1.17.3",
-    "passport": "^0.6.0",
-    "passport-google-oauth20": "^2.0.0",
     "cors": "^2.8.5",
     "dotenv": "^16.3.1",
     "helmet": "^7.0.0",
     "morgan": "^1.10.0",
-    "cookie-parser": "^1.4.6",
     "express-rate-limit": "^6.8.1"
   },
   "devDependencies": {
@@ -25,9 +20,9 @@
   },
   "keywords": [
     "location-sharing",
-    "google-oauth",
     "navigation",
-    "findher"
+    "findher",
+    "indoor-navigation"
   ],
   "author": "FindHer Team",
   "license": "MIT"

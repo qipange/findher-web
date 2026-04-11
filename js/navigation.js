@@ -133,7 +133,12 @@ function startLocationTracking() {
         watchId = navigator.geolocation.watchPosition(
             updateMyLocation,
             handleLocationError,
-            { enableHighAccuracy: true, maximumAge: 0, timeout: 5000 }
+            { 
+                enableHighAccuracy: true, 
+                maximumAge: 0, 
+                timeout: 10000,
+                distanceFilter: 1
+            }
         );
         
         // 监听设备方向
@@ -149,6 +154,18 @@ function startLocationTracking() {
 function updateMyLocation(position) {
     // 记录位置精度
     lastAccuracy = position.coords.accuracy;
+    
+    // 精度警告（精度大于30米时提示）
+    const accuracyWarning = document.getElementById('accuracy-warning');
+    const accuracyWarningText = document.getElementById('accuracy-warning-text');
+    if (accuracyWarning && accuracyWarningText) {
+        if (lastAccuracy > 30) {
+            accuracyWarning.style.display = 'block';
+            accuracyWarningText.textContent = `${t('accuracyWarning')}: ${Math.round(lastAccuracy)} ${t('accuracyUnit')}`;
+        } else {
+            accuracyWarning.style.display = 'none';
+        }
+    }
     
     // 添加新位置到历史记录
     positionHistory.push({

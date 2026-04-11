@@ -202,14 +202,6 @@
                         <div class="sponsor-method-icon">💚</div>
                         <div class="sponsor-method-name">微信支付</div>
                     </div>
-                    <div class="sponsor-method-item" data-currency="CNY" id="alipay">
-                        <div class="sponsor-method-icon">💙</div>
-                        <div class="sponsor-method-name">支付宝</div>
-                    </div>
-                    <div class="sponsor-method-item" data-currency="CNY" id="afdian">
-                        <div class="sponsor-method-icon">❤️</div>
-                        <div class="sponsor-method-name">爱发电</div>
-                    </div>
                     <div class="sponsor-method-item" data-currency="USD" id="buymeacoffee">
                         <div class="sponsor-method-icon">☕</div>
                         <div class="sponsor-method-name">Buy Me a Coffee</div>
@@ -263,14 +255,6 @@
                 title: '微信支付',
                 qrcode: 'images/wechat-pay.png',
                 hint: '打开微信扫一扫或长按识别'
-            },
-            alipay: {
-                title: '支付宝',
-                qrcode: 'images/alipay.png',
-                hint: '打开支付宝扫一扫'
-            },
-            afdian: {
-                url: 'https://afdian.net/@your-username'
             },
             buymeacoffee: {
                 url: 'https://www.buymeacoffee.com/your-username'
@@ -368,10 +352,6 @@
         
         function setupPaymentButtons() {
             document.getElementById('wechat-pay').addEventListener('click', () => showQRCode('wechat'));
-            document.getElementById('alipay').addEventListener('click', () => showQRCode('alipay'));
-            document.getElementById('afdian').addEventListener('click', () => {
-                window.open(CONFIG.afdian.url, '_blank');
-            });
             document.getElementById('buymeacoffee').addEventListener('click', () => {
                 window.open(CONFIG.buymeacoffee.url, '_blank');
             });

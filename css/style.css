@@ -363,6 +363,17 @@ footer {
     letter-spacing: -0.5px;
 }
 
+.accuracy-warning {
+    text-align: center;
+    font-size: 13px;
+    color: #ff9500;
+    background: rgba(255, 149, 0, 0.1);
+    padding: 8px 12px;
+    border-radius: 8px;
+    margin-bottom: 10px;
+    border: 1px solid rgba(255, 149, 0, 0.3);
+}
+
 .info-row {
     display: flex;
     justify-content: space-between;

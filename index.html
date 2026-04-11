@@ -15,78 +15,8 @@
     <title id="page-title">FindHer - 位置共享</title>
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap">
-    <style>
-        .user-menu {
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-        
-        .user-avatar {
-            width: 32px;
-            height: 32px;
-            border-radius: 50%;
-            cursor: pointer;
-            border: 2px solid #fff;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-        }
-        
-        .login-btn {
-            background: #4285f4;
-            color: white;
-            border: none;
-            padding: 8px 16px;
-            border-radius: 4px;
-            cursor: pointer;
-            font-size: 14px;
-            font-weight: 500;
-        }
-        
-        .login-btn:hover {
-            background: #3367d6;
-        }
-        
-        .auth-status {
-            position: fixed;
-            top: 20px;
-            left: 20px;
-            background: rgba(255,255,255,0.9);
-            padding: 8px 12px;
-            border-radius: 20px;
-            font-size: 12px;
-            color: #666;
-            z-index: 1000;
-        }
-        
-        .auth-status.authenticated {
-            background: rgba(76, 175, 80, 0.9);
-            color: white;
-        }
-        
-        .container {
-            position: relative;
-            z-index: 1;
-        }
-    </style>
 </head>
 <body>
-    <!-- 认证状态指示器 -->
-    <div id="auth-status" class="auth-status">检查登录状态...</div>
-    
-    <!-- 用户菜单 -->
-    <div id="user-menu" class="user-menu" style="display: none;">
-        <img id="nav-user-avatar" class="user-avatar" src="" alt="用户头像">
-        <span id="nav-user-name" style="font-size: 14px; font-weight: 500;"></span>
-    </div>
-    
-    <!-- 登录按钮 -->
-    <div id="login-section" style="display: none;">
-        <button id="login-btn" class="login-btn">登录</button>
-    </div>
-
     <div class="container">
         <header>
             <h1>FindHer</h1>
@@ -142,57 +72,5 @@
 
     <script type="module" src="js/app-v2.js"></script>
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX" crossorigin="anonymous"></script>
-    <script>
-        // 检查用户认证状态
-        async function checkAuthStatus() {
-            try {
-                const response = await fetch('/api/auth/check');
-                const data = await response.json();
-                
-                const authStatus = document.getElementById('auth-status');
-                const loginSection = document.getElementById('login-section');
-                const userMenu = document.getElementById('user-menu');
-                
-                if (data.authenticated) {
-                    // 用户已登录
-                    authStatus.textContent = '已登录';
-                    authStatus.classList.add('authenticated');
-                    loginSection.style.display = 'none';
-                    userMenu.style.display = 'flex';
-                    
-                    // 获取用户信息
-                    const userResponse = await fetch('/api/user');
-                    const userData = await userResponse.json();
-                    
-                    if (userData.authenticated && userData.user) {
-                        document.getElementById('nav-user-avatar').src = userData.user.picture;
-                        document.getElementById('nav-user-name').textContent = userData.user.name;
-                    }
-                } else {
-                    // 用户未登录
-                    authStatus.textContent = '未登录';
-                    authStatus.classList.remove('authenticated');
-                    loginSection.style.display = 'block';
-                    userMenu.style.display = 'none';
-                }
-            } catch (error) {
-                console.error('检查认证状态失败:', error);
-                document.getElementById('auth-status').textContent = '状态未知';
-            }
-        }
-
-        // 登录按钮点击事件
-        document.getElementById('login-btn').addEventListener('click', () => {
-            window.location.href = '/auth.html';
-        });
-
-        // 页面加载时检查认证状态
-        document.addEventListener('DOMContentLoaded', () => {
-            checkAuthStatus();
-            
-            // 每30秒检查一次认证状态
-            setInterval(checkAuthStatus, 30000);
-        });
-    </script>
 </body>
 </html>
