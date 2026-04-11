@@ -104,14 +104,12 @@ function applyTranslations() {
     const tipStatsLabel = document.getElementById('tip-stats-label');
     const tipWechatText = document.getElementById('tip-wechat-text');
     const tipCloseBtn = document.getElementById('tip-close-btn');
-    const tipNeverBtn = document.getElementById('tip-never-btn');
     
     if (tipTitle) tipTitle.textContent = t('tipTitle');
     if (tipMessage) tipMessage.textContent = t('tipMessage');
     if (tipStatsLabel) tipStatsLabel.textContent = t('tipUsageCount');
     if (tipWechatText) tipWechatText.textContent = currentLang === 'zh-CN' ? '微信支付' : 'WeChat Pay';
     if (tipCloseBtn) tipCloseBtn.textContent = t('tipCloseBtn');
-    if (tipNeverBtn) tipNeverBtn.textContent = t('tipNeverBtn');
 }
 
 // 加载图标
@@ -572,11 +570,6 @@ function openMapView() {
 function loadUsageStats() {
     const stored = localStorage.getItem('findher_usage_count');
     usageCount = stored ? parseInt(stored, 10) : 0;
-    
-    const neverTip = localStorage.getItem('findher_never_tip');
-    if (neverTip === 'true') {
-        hasShownTipModal = true;
-    }
 }
 
 function saveUsageCount() {
@@ -652,14 +645,6 @@ function setupTipModal() {
     const closeBtn = document.getElementById('tip-close-btn');
     if (closeBtn) {
         closeBtn.addEventListener('click', hideTipModal);
-    }
-    
-    const neverBtn = document.getElementById('tip-never-btn');
-    if (neverBtn) {
-        neverBtn.addEventListener('click', () => {
-            localStorage.setItem('findher_never_tip', 'true');
-            hideTipModal();
-        });
     }
     
     const overlay = document.getElementById('tip-modal-overlay');
